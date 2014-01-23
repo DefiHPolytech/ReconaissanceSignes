@@ -16,6 +16,7 @@ public class FluxVideo {
 			initFluxVideo();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Erreur lors de l'initialisation de la vidéo");
 			e.printStackTrace();
 		}
 	}

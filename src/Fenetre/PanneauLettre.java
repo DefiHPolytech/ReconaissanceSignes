@@ -22,7 +22,7 @@ public class PanneauLettre extends JPanel  {
 
 	}
 	
-	public void setImage(BufferedImage image){ 
+	public void setImage(BufferedImage image) { 
 		
 		if(this.image != null)
 			this.image.flush();

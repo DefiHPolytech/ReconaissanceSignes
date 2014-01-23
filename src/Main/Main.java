@@ -84,7 +84,7 @@ public class Main {
 
 						// appli du masque
 						try {
-							ReconCouleurPeau.masquerObjet(imageParallele,
+							ReconCouleurPeau.masquerObjet(imageIplPara.getBufferedImage(),
 									detectVisage.getRectangle());
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -138,6 +138,7 @@ public class Main {
 			detectVisage = null;
 
 		} catch (Exception e) {
+			System.out.println("Erreur lors de la libération de la mémoire");
 		}
 
 		ThreadLettre thLettre = new ThreadLettre();
@@ -151,6 +152,7 @@ public class Main {
 			while (!fenetre.appliEstArrete()) {
 
 				if (pan.getImageIpl() != null && pan.getImage() != null) {
+					
 					// on actualise l'image noir et blanc
 					panNoirEtBlanc.setImage(pan.getImageIpl());
 
@@ -198,7 +200,6 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-
 		fenetreNoirEtBlanc.dispose();
 		thLettre.setContinuer(false);
 

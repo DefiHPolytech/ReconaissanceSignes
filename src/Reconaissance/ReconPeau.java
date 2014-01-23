@@ -184,8 +184,8 @@ public class ReconPeau {
 			rect.width(rect.width()/2);
 		else
 		{
-			rect.x(rect.width()/2);
-			rect.width(rect.width()/2);
+			rect.x(image.width()/2);
+			//rect.width(rect.width()/2);
 		}
 		
 		zoneRecherche = IplImage.createFrom(ReconVisage.recupObjetBuffer(zoneRecherche.getBufferedImage(), rect));
@@ -199,8 +199,8 @@ public class ReconPeau {
 			rect.height(rect.height()/2);
 		else
 		{
-			rect.y(rect.height()/2);
-			rect.height(rect.height()/2);
+			rect.y(image.height()/2);
+			//rect.height(rect.height()/2);
 		}
 		
 		zoneRecherche = IplImage.createFrom(ReconVisage.recupObjetBuffer(zoneRecherche.getBufferedImage(), rect));
@@ -219,7 +219,7 @@ public class ReconPeau {
     // on suit la masse de pixel blanc
 	public void suivreMain (IplImage image , CvRect rectangle)
     {	
-       	//on creer un recatngle plus grand 
+       	//on crée un nouveau rectangle
     	CvRect rect = new CvRect(rectangle.x(), rectangle.y(),rectangle.width(),rectangle.height());
        	
     	IplImage zoneRecherche = ReconVisage.recupObjet(image, rect);
@@ -239,14 +239,8 @@ public class ReconPeau {
 	{
 		CvRect result = null;
 		
-		
-		if( rect.x() < 0|| rect.y() < 0|| rect.x()+rect.width()>= imageNoir.width() || rect.y()+rect.height() >= imageNoir.height())
-		{
-			result = reposRectangleImage(imageNoir, rect);
-		}
-		else
-			result =  new CvRect(rect.x(), rect.y(), rect.width(), rect.height());
-		
+		//on redimentionne si besoin
+		result = reposRectangleImage(imageNoir, rect);
 		
 		int DECALAGE = 10;
 		BufferedImage img = imageNoir.getBufferedImage();
