@@ -18,11 +18,16 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	    private String lettre;
 	    private BufferedImage image;
 	    private int dy=5;
+	    private int countdown=-1;
 	    
 	    public Vehicule(String lettre)
 	    {
 	    	
 	        this.lettre = lettre;
+	    }
+	    
+	    public boolean countDownZero (){
+	        return countdown<=0;
 	    }
 	    
 	    public String getLettre(){
@@ -34,6 +39,8 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	        {
 	            y -= dy;
 	            repaint();
+	            if (countdown>0)
+	                countdown-=5;
 	        }
 	    
 
@@ -85,7 +92,11 @@ public abstract class Vehicule extends JPanel implements ActionListener
 		    timer.stop();
 		}
 		
-
+		
+		public void setCountDown(int delay){
+		    countdown=delay;
+		}
+		
 		public void slow(){
 		    timer.setDelay(timer.getDelay()+50);
 		}
