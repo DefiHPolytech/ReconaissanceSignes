@@ -44,7 +44,9 @@ public class PanneauImageNoirEtBlanc extends JPanel  implements KeyListener{
 		this.repaint();
 	}
 	
-	public IplImage getImage() { return this.image;}
+	public IplImage getImage() {
+		return this.image;
+	}
 
 
 	@Override

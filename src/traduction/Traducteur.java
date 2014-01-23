@@ -11,7 +11,7 @@ import Reconaissance.ReconVisage;
 import com.googlecode.javacv.cpp.opencv_core.CvRect;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
 
-public class Traducteur implements Runnable {
+public class Traducteur {
 
     private PanneauVideo pan;
     private PanneauImageNoirEtBlanc panNoirEtBlanc;
@@ -78,7 +78,7 @@ public class Traducteur implements Runnable {
 
         // appli du masque
         try {
-            ReconCouleurPeau.masquerObjet(imageParallele,
+            ReconCouleurPeau.masquerObjet(imageIplPara.getBufferedImage(),
                     detectVisage.getRectangle());
         } catch (Exception e) {
             System.out.println("Erreur lors de l'application du masque");
@@ -231,8 +231,14 @@ public class Traducteur implements Runnable {
         
         ready = false;
 
+        stop();
     }
-    
+    /*
+    private void lancerEcouteurs() {
+        for (TraductionListener listener : listeners)
+            thTraduction.addListener(listener);
+    }
+    */
     public void addListener (TraductionListener listener) {        
         thTraduction.addListener(listener);
     }
@@ -261,19 +267,11 @@ public class Traducteur implements Runnable {
     public boolean isReady() {
         return ready;
     }
-    
-    public void run() {
-        lancerTraductions();
-    }
 
     public static void main(String[] args) {
         Traducteur traducteur = new Traducteur(new PanneauVideo(), 1000);
-        
         traducteur.addListener(new TraductionAfficheur());
-        
-        Thread thTraducteur = new Thread(traducteur);
-        thTraducteur.start();
-        
+        traducteur.lancerTraductions();
     }
 
 }

@@ -15,7 +15,7 @@ public class ThreadTraduction implements Runnable {
 
 	char lettre = '\0';
 	char lettrePrecedent = '\0';
-		
+	
 	List <TraductionListener> listeners;
 	
 	public ThreadTraduction() {
