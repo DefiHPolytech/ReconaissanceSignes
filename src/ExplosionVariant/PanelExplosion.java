@@ -37,8 +37,14 @@ public class PanelExplosion extends PanelGenerique{
 			 Vehicule v = (Vehicule)carList.get(i);
 	          if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
 	          {
-	        	    
-	        	    	pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
+	        	    	if(Aleatoire.randomBoolean())
+	        	    	{
+	        	    		pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
+	        	    	}
+	        	    	else
+	        	    	{
+	        	    		pam.replaceVehiculebyPanel(i);
+	        	    	}
 	        	    
 	          }	          
 	     } 
