@@ -8,7 +8,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import scores.Scores;
 import affichage.Cadre;
 
 /**
