@@ -6,30 +6,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JPanel;
+//Timer adapté a la gestion évenementielle
 import javax.swing.Timer;
 
 import algorithmes.Aleatoire;
 import vehicules.*;
 
+/**
+ * Cette classe affiche un panel générique dont les méthodes sont utiles pour les 2 variantes
+ * @author Julien
+ *
+ */
 public class PanelGenerique extends JPanel implements ActionListener{
 
 
 	protected static final long serialVersionUID = 1L;
 	protected static final int GRIDNB=10;
 	protected static final int NBCARS=5;
-	protected static final int VITESSEMIN=5;
-	
+	// Une seconde entre chaque vérification du timer ppal
+	protected static final int VITESSEMIN=1000;	
 	protected ArrayList<JPanel> carList = new ArrayList<JPanel>();
-	protected PanelActionManager pam;
-    
+	protected PanelActionManager pam;    
+	
+	//Pour executer une action a intervalle réguliers
 	protected Timer timer;
-    public PanelGenerique(){
-        
-    }
+	
+    
     public  ArrayList<JPanel> getCarList(){
         return carList;
     }
     
+    /**
+     * Pour remplir l'array avec les véhicules initiaux
+     */
     public void instanciateArray (){
 		for(int i = 0; i<GRIDNB; i++)
 		if(Aleatoire.randomBoolean())
@@ -46,14 +55,10 @@ public class PanelGenerique extends JPanel implements ActionListener{
 		}
     }
     
-    public void instanciatePanels(){
-        Iterator<JPanel> it = carList.iterator();
-        
-        while (it.hasNext()) {
-               JPanel s = it.next();
-               add(s);
-        }
-    }
+  
+    /**
+     * Faire démarrer tous les véhicules
+     */
     public void generalStart(){
         Iterator<JPanel> it = carList.iterator();
         
@@ -66,6 +71,10 @@ public class PanelGenerique extends JPanel implements ActionListener{
                }
         }
     }
+    
+    /**
+     * Arrêter tous les véhicules
+     */
     public void generalStop(){
         Iterator<JPanel> it = carList.iterator();
         
@@ -79,6 +88,10 @@ public class PanelGenerique extends JPanel implements ActionListener{
         }
     }
     
+    /**
+     * L'action par défaut appliquée aux véhicules sortants(remplacement sans aléatoire)
+     * NB : Le timer remonte une action de type actionevent a chaque "top" d'horloge 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         

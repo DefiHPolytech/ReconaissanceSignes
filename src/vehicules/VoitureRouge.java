@@ -1,5 +1,9 @@
 package vehicules;
-
+/**
+ * Cette classe représente une voiture rouge
+ * @author user
+ *
+ */
 public class VoitureRouge extends Vehicule{
 
 	private static final long serialVersionUID = 1L;

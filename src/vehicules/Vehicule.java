@@ -9,6 +9,11 @@ import javax.swing.*;
 
 import affichage.Cadre;
 
+/**
+ * Cette classe représente un véhicule qui se déplace sur une colonne
+ * @author Benjamin-Julien
+ *
+ */
 public abstract class Vehicule extends JPanel implements ActionListener
 {
 	
@@ -27,11 +32,18 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	        this.lettre = lettre;
 	    }
 	    
-	    
+	    /**
+	     * Le compte a rebours est terminé
+	     * @return
+	     */
 	    public boolean countDownZero (){
 	        return countdown<=0;
 	    }
 	    
+	    /**
+	     * Savoir quelle lettre est portée par le véhicule
+	     * @return
+	     */
 	    public String getLettre(){
 	        return lettre;
 	    }
@@ -55,15 +67,27 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	        paintCar(g);
 	    }	    
 	    
+	    /**
+	     * Dessine la voiture
+	     * @param g
+	     */
 	    protected void paintCar (Graphics g){
 	        g.drawImage(getImage(),x,y,null);
 	        g.drawString(lettre,x+1/3,y+1/3);
 	    }
-
+	    
+	    /**
+	     * Savoir l'image
+	     * @return
+	     */
 		protected BufferedImage getImage() {
 			return image;
 		}
-
+	
+		/**
+		 * Changer l'image pour une image d'explosion par exemple
+		 * @param image
+		 */
 		protected void setImage(String image) {
 			try{
 				this.image = ImageIO.read(new File(image));
@@ -73,51 +97,89 @@ public abstract class Vehicule extends JPanel implements ActionListener
 				System.out.println("Fichier"+image+" manquant ! ");
 			}
 		}
-
+		
+		/**
+		 * Avoir la vitesse actuelle
+		 * @return
+		 */
 		protected int getVitesse() {
 			return vitesse;
 		}
 		
+		/**
+		 * Changer la vitesse avec le timer 
+		 * @param vitesse
+		 */
 		protected void setVitesse (int vitesse){
 		    this.vitesse = vitesse;   
             timer = new Timer(vitesse, this);
 		}
 		
+		/**
+		 * Supprimer le timer
+		 */
 		public void destroyTimer() {
 		    timer.stop();
 		    timer=null;
 		}
 		
+		/**
+		 * Démarrer la voiture
+		 */
 		public void go() {
 			timer.start();	
 		}
 		
+		/**
+		 * La voiture est elle en mvt ?
+		 * @return
+		 */
 		public boolean isRunning(){
 			return dy!=0;
 		}
 		
+		/**
+		 * Stopper la voiture
+		 */
 		public void stop(){
 		    dy=0;
 		}
 		
-		
+		/**
+		 * Mettre en place un compte a rebours (par ex utile lorsque on fait exploser une voiture, pour afficher l'image d'expl.)
+		 * @param delay
+		 */
 		public void setCountDown(int delay){
 		    countdown=delay;
 		}
 		
+		/**
+		 * Ralentit le véhicule
+		 */
 		public void slow(){
 		    timer.setDelay(timer.getDelay()+50);
 		    slowed=true;
 		}
+		
+		/**
+		 * Accélère le véhicule
+		 */
 		public void unSlow(){
 		    timer.setDelay(timer.getDelay()-50);
 		    slowed=false;
 		}
 		
+		/**
+		 * Avoir le timer
+		 * @return
+		 */
 		public Timer getTimer(){
 		    return timer;
 		}
 		
+		/**
+		 * Exploser la voiture
+		 */
 		public void explose()
 		{
 			setImage("voitures/explosion.png");
@@ -125,7 +187,10 @@ public abstract class Vehicule extends JPanel implements ActionListener
 		}
 		
 		
-		
+		/**
+		 * Si la voiture sort de la fenêtre
+		 * @return
+		 */
 		public boolean outOfWindow (){
 		    return y<(-image.getHeight());
 		}

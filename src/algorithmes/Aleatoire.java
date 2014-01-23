@@ -2,27 +2,40 @@ package algorithmes;
 
 import java.util.Random;
 
-import vehicules.Camion;
-import vehicules.GrosCamion;
-import vehicules.Vehicule;
-import vehicules.VoitureBlanche;
-import vehicules.VoitureJaune;
-import vehicules.VoitureRouge;
-import vehicules.VoitureVerte;
-
+import vehicules.*;
+ 
+/**
+ * Cette classe permet de générer l'aléatoire ds le jeu
+ * @author user
+ *
+ */
 public class Aleatoire {
+	
+	/**
+	 * Avoir une lettre aléatoire
+	 * @return
+	 */
 	public static String randomLetter() {
 		Random r = new Random();
 		char c = (char) (r.nextInt(26) + 'A');
 		return Character.toString(c);
 	}
 
+	/**
+	 * Avoir un booléen aléatoire
+	 * @return i
+	 */
 	public static boolean randomBoolean() {
 		Random r = new Random();
 		boolean i = r.nextBoolean();
 		return i;
 	}
 
+	/**
+	 * Avoir un véhicule aléatoire 
+	 * @param nbCars
+	 * @return v
+	 */
 	public static int RandomCar(int nbCars) {
 		Random r = new Random();
 		int i = r.nextInt(nbCars);

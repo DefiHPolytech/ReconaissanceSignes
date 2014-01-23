@@ -1,5 +1,9 @@
 package vehicules;
-
+/**
+ * Cette classe représente un gros camion
+ * @author user
+ *
+ */
 public class GrosCamion extends Vehicule {
 
 private static final long serialVersionUID = 1L;

@@ -9,13 +9,20 @@ import vehicules.Vehicule;
 import affichage.PanelActionManager;
 import affichage.PanelGenerique;
 import algorithmes.Aleatoire;
-
+/**
+ * Cette classe simule une explosion
+ * @author Julien 
+ *
+ */
 public class PanelExplosion extends PanelGenerique{
 	
 	private static final long serialVersionUID = 1L;
-	private static final double EPSILON = 0.001;
+	private static final double EPSILON = 0.01;
+	private static final double DIFFICULTEE = 1;
+	
 	
     public PanelExplosion(){
+    	// On crée une grille de 1*10 col ou circuleront les voitures
         setLayout(new GridLayout(1,GRIDNB));
         instanciateArray();       
         generalStart();   
@@ -27,16 +34,21 @@ public class PanelExplosion extends PanelGenerique{
         timer.start();
     }
 	
+    /**
+     * L'action a faire lorsque un véhicule est explosé / autres
+     */
     @Override
 	public void actionPerformed(ActionEvent e) {
 	        
 	for (int i=0; i<carList.size();i++){
-		 
+		 // Si c'est un véhicule et nn un panel vide
 		 if(carList.get(i) instanceof Vehicule)
 	     {
 			 Vehicule v = (Vehicule)carList.get(i);
+			 //Si il est sorti ou qu'il a explosé et qu'on a laissé le temps de voir l'image d'explosion
 	          if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
 	          {
+	        	  //Alors il y a une prob. qu'on repop un véhicule sur la colonne correspondante
 	        	    	if(Aleatoire.randomBoolean())
 	        	    	{
 	        	    		pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
@@ -44,11 +56,11 @@ public class PanelExplosion extends PanelGenerique{
 	        	    	else
 	        	    	{
 	        	    		pam.replaceVehiculebyPanel(i);
-	        	    	}
-	        	    
+	        	    	}	        	    
 	          }	          
 	     } 
-		 else if(Math.random()<EPSILON)
+		 // Il y a une probabilité faible qu'a chacke tick d'horloge un véhicule repop sur une colonne 
+		 else if(Math.random()<EPSILON*DIFFICULTEE)
 		 {
 			 pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
 		 }

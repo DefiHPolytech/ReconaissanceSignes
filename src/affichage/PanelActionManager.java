@@ -2,21 +2,23 @@ package affichage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.JPanel;
-
 import vehicules.Vehicule;
 
 public class PanelActionManager {
 
 PanelGenerique pC;
 
+/**
+ * @author benjamin
+ * @param pC
+ */
 public PanelActionManager(PanelGenerique pC) {
     this.pC = pC;
 }
 
 /**
- * Renvoit l'indice dans la Liste des Panels (Vehicules) des vehicules ayant la
+ * Renvoie l'indice dans la Liste des Panels (Vehicules) des vehicules ayant la
  * lettre c
  * 
  * @param c
@@ -42,7 +44,12 @@ public ArrayList<Integer> getCarsWithLetter(String c){
     
 }
 
-
+/**
+ * Cette méthode ralentit/accèlère/fait exploser une voiture
+ * Le code est similaire pour ces trois méthodes ce pourquoi on a factorisé le code
+ * @param c
+ * @param action
+ */
 public void actionSurVoitureLettre(String c, String action) {
     ArrayList<Integer> indices = getCarsWithLetter(c);
     Iterator<Integer> it = indices.iterator();
@@ -67,7 +74,10 @@ public void actionSurVoitureLettre(String c, String action) {
 	
 }
 
-
+/**
+ * Cette méthode détruit un véhicule
+ * @param jPanel
+ */
 public void detruire(JPanel jPanel) {
     if (jPanel instanceof Vehicule){
         Vehicule vehicule = (Vehicule) jPanel;
@@ -76,6 +86,11 @@ public void detruire(JPanel jPanel) {
     jPanel = null;
 }
 
+/**
+ * Cette méthode remplace un Panel ou Vehicule par un nouveau véhicule
+ * @param i
+ * @param v
+ */
 public void swapPanelIby(int i, Vehicule v) {
     ArrayList<JPanel> carList = pC.getCarList();
     detruire(carList.get(i));
@@ -89,6 +104,10 @@ public void swapPanelIby(int i, Vehicule v) {
     pC.validate();
 }
 
+/**
+ * Cette méthode remplace un véhicule par un panel vide
+ * @param i
+ */
 public void replaceVehiculebyPanel(int i)
 {
 	ArrayList<JPanel> carList = pC.getCarList();

@@ -3,17 +3,21 @@ package CourseVariant;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import vehicules.*;
-import affichage.MyKeyListener;
+
 import affichage.PanelActionManager;
 import affichage.PanelGenerique;
 import algorithmes.Aleatoire;
 
+/**
+ *Cette classe simule une course entre des policiers et des malfrats
+ * @author Benjamin
+ *
+ */
 public class PanelCourse extends PanelGenerique implements ActionListener {
 
 private static final long serialVersionUID = 1L;
@@ -26,10 +30,14 @@ public PanelCourse() {
     CourseKeyListener listener = new CourseKeyListener(pam);
     addKeyListener(listener);
     setFocusable(true);
-    timer = new Timer(30, this);
+    timer = new Timer(VITESSEMIN, this);
     timer.start();
 }
 
+/**
+ * On redéfinit l'instanciation de l'array avec des véhicules de police 
+ * qui n'apparaissent pas dans l'autre variante
+ */
 @Override
 public void instanciateArray() {
     Vehicule v = new VoiturePolice("");
@@ -48,6 +56,9 @@ public void instanciateArray() {
     }
 }
 
+/**
+ * On redefinit l'action a faire lorsque des véhicules sortent de l'écran/a un tick d'horloge
+ */
 @Override
 public void actionPerformed(ActionEvent e) {
     
