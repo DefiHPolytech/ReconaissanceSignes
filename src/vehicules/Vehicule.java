@@ -39,8 +39,10 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	        {
 	            y -= dy;
 	            repaint();
-	            if (countdown>0)
-	                countdown-=5;
+	            if (countdown>0){
+	            	countdown-=5;
+	            
+	                System.out.println(countdown);}
 	        }
 	    
 
@@ -88,8 +90,12 @@ public abstract class Vehicule extends JPanel implements ActionListener
 			timer.start();	
 		}
 		
+		public boolean isRunning(){
+			return dy!=0;
+		}
+		
 		public void stop(){
-		    timer.stop();
+		    dy=0;
 		}
 		
 		
