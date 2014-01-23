@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import scores.Scores;
+import CourseVariant.PanelCourse;
 import ExplosionVariant.PanelExplosion;
 
 
@@ -29,10 +30,10 @@ public class Cadre extends JFrame{
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setTitle("Traffic");
 		
-		PanelExplosion f = new PanelExplosion();
-		//PanelCourse c = new PanelCourse();
+		//PanelExplosion f = new PanelExplosion();
+		PanelCourse c = new PanelCourse();
 		
-		add(f, BorderLayout.CENTER);
+		add(c, BorderLayout.CENTER);
 		
 		s= new Scores();
 		add(s, BorderLayout.SOUTH);

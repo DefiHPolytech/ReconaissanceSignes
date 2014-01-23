@@ -68,6 +68,7 @@ public void actionSurVoitureLettre(String c, String action) {
         	v.stop();
         case "slow":
             v.slow();
+            v.setCountDown(100);
         }       
         pC.getCarList().set(i,v);
     }

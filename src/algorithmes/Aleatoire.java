@@ -31,6 +31,19 @@ public class Aleatoire {
 		return i;
 	}
 
+	
+	   /**
+     * Avoir un booléen aléatoire (avec une probabilité de succés de i%)
+     * @return
+     */
+    public static boolean randomBoolean(int i) {
+        Random r = new Random();
+        int c = r.nextInt(99);
+        return c<i;
+    }
+
+    
+    
 	/**
 	 * Avoir un véhicule aléatoire 
 	 * @param nbCars
