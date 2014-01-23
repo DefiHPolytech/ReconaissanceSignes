@@ -18,7 +18,7 @@ public class PanelExplosion extends PanelGenerique{
 	
 	private static final long serialVersionUID = 1L;
 	private static final double EPSILON = 0.01;
-	private static final double DIFFICULTEE = 1;
+	private static final double DIFFICULTEE = 8;
 	
 	
     public PanelExplosion(){

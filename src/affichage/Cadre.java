@@ -1,6 +1,10 @@
 package affichage;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+
+import scores.Scores;
 import ExplosionVariant.PanelExplosion;
 
 
@@ -13,8 +17,10 @@ public class Cadre extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public static final int SIZEH =600;
 	public static final int SIZEL =800;
+	public static Scores s;
 	public Cadre()
 	{
+		setLayout(new BorderLayout());
 		/** La taille de la fenêtre */
 	    setSize(SIZEL,SIZEH);
 	    setLocationRelativeTo(null);
@@ -25,6 +31,12 @@ public class Cadre extends JFrame{
 		
 		PanelExplosion f = new PanelExplosion();
 		//PanelCourse c = new PanelCourse();
-		add(f);
+		
+		add(f, BorderLayout.CENTER);
+		
+		s= new Scores();
+		add(s, BorderLayout.SOUTH);
+		
+		
 	}
 }

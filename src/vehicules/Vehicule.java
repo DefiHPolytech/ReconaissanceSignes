@@ -4,9 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import scores.Scores;
 import affichage.Cadre;
 
 /**
@@ -24,7 +26,7 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	    private BufferedImage image;
 	    private int dy=5;
 	    private int countdown=-1;
-	    private boolean slowed=false;
+
 	    
 	    public Vehicule(String lettre)
 	    {
@@ -158,7 +160,6 @@ public abstract class Vehicule extends JPanel implements ActionListener
 		 */
 		public void slow(){
 		    timer.setDelay(timer.getDelay()+50);
-		    slowed=true;
 		}
 		
 		/**
@@ -166,7 +167,6 @@ public abstract class Vehicule extends JPanel implements ActionListener
 		 */
 		public void unSlow(){
 		    timer.setDelay(timer.getDelay()-50);
-		    slowed=false;
 		}
 		
 		/**
@@ -184,6 +184,7 @@ public abstract class Vehicule extends JPanel implements ActionListener
 		{
 			setImage("voitures/explosion.png");
 			repaint();
+			Cadre.s.augmenteScore(10);
 		}
 		
 		
