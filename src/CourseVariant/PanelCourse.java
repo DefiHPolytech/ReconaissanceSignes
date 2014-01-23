@@ -50,10 +50,12 @@ public void instanciateArray() {
 
 @Override
 public void actionPerformed(ActionEvent e) {
-
+    
     for (int i = 0; i < carList.size(); i++) {
         if (carList.get(i) instanceof Vehicule) {
             Vehicule v = (Vehicule) carList.get(i);
+
+            
             if (v.outOfWindow()) {
                 
                 if(v.equals(carList.get(0))){

@@ -19,12 +19,14 @@ public abstract class Vehicule extends JPanel implements ActionListener
 	    private BufferedImage image;
 	    private int dy=5;
 	    private int countdown=-1;
+	    private boolean slowed=false;
 	    
 	    public Vehicule(String lettre)
 	    {
 	    	
 	        this.lettre = lettre;
 	    }
+	    
 	    
 	    public boolean countDownZero (){
 	        return countdown<=0;
@@ -99,9 +101,11 @@ public abstract class Vehicule extends JPanel implements ActionListener
 		
 		public void slow(){
 		    timer.setDelay(timer.getDelay()+50);
+		    slowed=true;
 		}
 		public void unSlow(){
 		    timer.setDelay(timer.getDelay()-50);
+		    slowed=false;
 		}
 		
 		public Timer getTimer(){
