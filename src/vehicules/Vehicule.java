@@ -124,6 +124,8 @@ public abstract class Vehicule extends JPanel implements ActionListener
 			repaint();
 		}
 		
+		
+		
 		public boolean outOfWindow (){
 		    return y<(-image.getHeight());
 		}
