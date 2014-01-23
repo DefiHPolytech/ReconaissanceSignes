@@ -54,6 +54,7 @@ public void actionSurVoitureLettre(String c, String action) {
         case "explose":
             v.stop();
         	v.explose();
+        	v.setCountDown(100);
         case "start":
         	v.go();   
         case "stop":

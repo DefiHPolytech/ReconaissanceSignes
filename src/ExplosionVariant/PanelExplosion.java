@@ -13,6 +13,7 @@ import algorithmes.Aleatoire;
 public class PanelExplosion extends PanelGenerique{
 	
 	private static final long serialVersionUID = 1L;
+	private static final double EPSILON = 0.001;
 	
     public PanelExplosion(){
         setLayout(new GridLayout(1,GRIDNB));
@@ -34,12 +35,14 @@ public class PanelExplosion extends PanelGenerique{
 		 if(carList.get(i) instanceof Vehicule)
 	     {
 			 Vehicule v = (Vehicule)carList.get(i);
-	          if(v.outOfWindow())
+	          if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
 	          {
-	        	  	pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
+	        	    
+	        	    	pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
+	        	    
 	          }	          
 	     } 
-		 else
+		 else if(Math.random()<EPSILON)
 		 {
 			 pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
 		 }
