@@ -203,9 +203,6 @@ public class Traducteur implements Runnable {
                     rectMain.x(detectePeau.x() - rectMain.width() / 2);
                     rectMain.y(detectePeau.y() - rectMain.height() / 2);
 
-                    // test
-                    rectMain=detectePeau.adaptRectangleObjet(detectePeau.getImage(),rectMain);
-
                     // on modifie la position du rectangle sur l'affichage
                     if (rectMain != null)
                         pan.setRectangleMain(rectMain);
