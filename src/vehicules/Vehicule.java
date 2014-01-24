@@ -52,11 +52,8 @@ public String getLettre() {
 public void actionPerformed(ActionEvent e) {
     y -= dy;
     repaint();
-    if (countdown > 0) {
+    if (countdown > 0) 
         countdown -= 5;
-
-        System.out.println(countdown);
-    }
 }
 
 @Override

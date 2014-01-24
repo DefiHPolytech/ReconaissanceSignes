@@ -46,7 +46,7 @@ public void instanciateArray() {
     Vehicule v = new VoiturePolice("");
     carList.add(v);
     add(v);
-    int proba = 30;
+    int proba = 50;
     for (int i = 1; i < GRIDNB; i++) {
         if (Aleatoire.randomBoolean(proba)) {
             Vehicule w = Aleatoire.createRandomVehicle(NBCARS);
@@ -57,7 +57,7 @@ public void instanciateArray() {
             JPanel p = new JPanel();
             carList.add(p);
             add(p);
-            proba += 5;
+            proba += 10;
         }
     }
 }
@@ -97,9 +97,7 @@ public void actionPerformed(ActionEvent e) {
 
 @Override
 public void receivedTraduction(String traduction) {
-
     pam.actionSurVoitureLettre(traduction, "slow");
-
 }
 
 }

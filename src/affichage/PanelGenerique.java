@@ -18,7 +18,7 @@ import vehicules.*;
  * @author Julien
  *
  */
-public class PanelGenerique extends JPanel implements ActionListener,TraductionListener{
+public abstract class PanelGenerique extends JPanel implements ActionListener,TraductionListener{
 
 
 	protected static final long serialVersionUID = 1L;
@@ -111,7 +111,6 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
 
     @Override
     public void receivedTraduction(String traduction) {
-        // TODO Auto-generated method stub
-        
+        System.out.println("appel "+traduction);
     }
 }

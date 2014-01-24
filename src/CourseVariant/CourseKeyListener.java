@@ -1,6 +1,7 @@
 package CourseVariant;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import affichage.PanelActionManager;
 /**
@@ -8,7 +9,7 @@ import affichage.PanelActionManager;
  * @author Benjamin
  *
  */
-public class CourseKeyListener extends affichage.MyKeyListener{
+public class CourseKeyListener extends affichage.MyKeyListener implements KeyListener{
 
     public CourseKeyListener(PanelActionManager action) {
         super(action);
@@ -20,7 +21,7 @@ public class CourseKeyListener extends affichage.MyKeyListener{
      */
     @Override
     public void keyTyped(KeyEvent arg0) {
-        System.out.println(arg0.getKeyChar());
+        System.out.println("halo non mais ha");
             String c = Character.toString(arg0.getKeyChar());
             actions.actionSurVoitureLettre(c,"slow");      
              
