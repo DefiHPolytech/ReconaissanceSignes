@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import scores.Scores;
+import traduction.Traducteur;
 import CourseVariant.PanelCourse;
 import ExplosionVariant.PanelExplosion;
 
@@ -22,11 +23,10 @@ private static final long serialVersionUID = 1L;
 public static final int SIZEH = 600;
 public static final int SIZEL = 800;
 public static Scores s;
-private PanelGenerique pG;
 private JButton explosion, course,options;
-
-public Cadre(Fenetre menu) {
-    
+private Traducteur traducteur;
+public Cadre(Fenetre menu, Traducteur t) {
+    traducteur = t;
     setSize(SIZEL, SIZEH);
     setLocationRelativeTo(null);
 
@@ -34,7 +34,7 @@ public Cadre(Fenetre menu) {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Traffic");
 
-    if (menu == menu) {
+    if (menu == Fenetre.menu) {
 
         setLayout(new FlowLayout());
         /** La taille de la fenêtre */
@@ -58,6 +58,7 @@ public Cadre(Fenetre menu) {
 
         s= new Scores();
         add(s, BorderLayout.SOUTH);
+        traducteur.addListener(c);
     }
     if (menu == Fenetre.modeCourse) {
         setLayout(new BorderLayout());
@@ -68,6 +69,7 @@ public Cadre(Fenetre menu) {
 
         s= new Scores();
         add(s, BorderLayout.SOUTH);
+        traducteur.addListener(c);
     }
     setVisible(true);
 }
@@ -76,12 +78,15 @@ public Cadre(Fenetre menu) {
 public void actionPerformed(ActionEvent arg0) {
     if (arg0.getSource() == explosion) {
         dispose();
-        Cadre c = new Cadre (Fenetre.modeExplosion);
+        Cadre c = new Cadre (Fenetre.modeExplosion,traducteur);
+        c.dispose();
+       
     }
 
     if (arg0.getSource() == course) {
         dispose();
-        Cadre c = new Cadre (Fenetre.modeCourse);
+        Cadre c = new Cadre (Fenetre.modeCourse,traducteur);
+        c.dispose();
     }
     if (arg0.getSource() == course) {
      
