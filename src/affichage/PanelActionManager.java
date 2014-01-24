@@ -59,7 +59,7 @@ public void actionSurVoitureLettre(String c, String action) {
         switch(action)
         {
         case "explose":
-        	if(v.isExploded())
+        	if(!v.isExploded())
         	{
         		v.stop();
         		v.explose();
