@@ -7,7 +7,7 @@ public class Launch {
 
 	public static void main(String[] args) {
 		
-		Cadre c = new Cadre();
+		Cadre c = new Cadre(Fenetre.menu);
 		c.setVisible(true);
 
 	}

@@ -31,6 +31,8 @@ public class Traducteur implements Runnable {
     private boolean pause;
     private boolean ready;
     
+    private CvRect rectMain = null;
+    
     private int traductionInterval;
     // couleur Moyenne
     private float[] HSV;
@@ -53,14 +55,14 @@ public class Traducteur implements Runnable {
         thTraduction = new ThreadTraduction();
     }
 
-    public void detectMain() {
+    private void detectMain() {
         detectePeau.recupMain(imageIplPara);
         pan.setPosRectangleMain(
                 detectePeau.x() - pan.getRectMain().width() / 2,
                 detectePeau.y() - pan.getRectMain().height() / 2);
     }
 
-    public void calculCouleurMoyenne() {
+    private void calculCouleurMoyenne() {
         HSV = ReconCouleurPeau.RGBtoHSV(couleurPeau.getCouleurMoyen()[0],
                 couleurPeau.getCouleurMoyen()[1],
                 couleurPeau.getCouleurMoyen()[2]);
@@ -68,7 +70,7 @@ public class Traducteur implements Runnable {
 
     }
 
-    public void appliMasque() {
+    private void appliMasque() {
         // on essaye mtn de masquer le visage
         // pour recuperer la main
         // on travail sur une image parallele
@@ -86,7 +88,7 @@ public class Traducteur implements Runnable {
         }
     }
 
-    public void premierePhase() {
+    public void init() {
         System.out.println("Première Phase... ");
 
         int compteur = 20;
@@ -147,9 +149,18 @@ public class Traducteur implements Runnable {
             System.out.println(compteur);
             compteur--;
         }
+        
+        // on libere la mémoire pour la seconde phase
+        libererMemoire();
+        
+        Thread th = new Thread(thTraduction);
+
+        th.start();
+
+        ready = true;
     }
 
-    public void libererMemoire() {
+    private void libererMemoire() {
         try {
 
             imageTete = null;
@@ -163,19 +174,8 @@ public class Traducteur implements Runnable {
         }
     }
 
-    public void secondePhase() {
+    private void secondePhase() {
         System.out.println("Seconde Phase... ");
-
-        // on libere la mémoire pour la seconde phase
-        libererMemoire();
-        
-        Thread th = new Thread(thTraduction);
-
-        th.start();
-
-        CvRect rectMain = null;
-
-        ready = true;
         
         while (continuer) {
             while (!pause) {
@@ -242,7 +242,9 @@ public class Traducteur implements Runnable {
     }
 
     public void lancerTraductions() {
-        premierePhase();
+        if (!ready)
+            init();
+        
         secondePhase();
     }
     
@@ -270,6 +272,8 @@ public class Traducteur implements Runnable {
         Traducteur traducteur = new Traducteur(new PanneauVideo(), 1000);
         
         traducteur.addListener(new TraductionAfficheur());
+        
+        traducteur.init();
         
         Thread thTraducteur = new Thread(traducteur);
         thTraducteur.start();
