@@ -30,10 +30,10 @@ public class Cadre extends JFrame{
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setTitle("Traffic");
 		
-		//PanelExplosion f = new PanelExplosion();
-		PanelCourse c = new PanelCourse();
+		PanelExplosion f = new PanelExplosion();
+		//PanelCourse c = new PanelCourse();
 		
-		add(c, BorderLayout.CENTER);
+		add(f, BorderLayout.CENTER);
 		
 		s= new Scores();
 		add(s, BorderLayout.SOUTH);
