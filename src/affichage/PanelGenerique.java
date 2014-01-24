@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import algorithmes.Aleatoire;
+import traduction.TraductionListener;
 import vehicules.*;
 
 /**
@@ -17,7 +18,7 @@ import vehicules.*;
  * @author Julien
  *
  */
-public class PanelGenerique extends JPanel implements ActionListener{
+public class PanelGenerique extends JPanel implements ActionListener,TraductionListener{
 
 
 	protected static final long serialVersionUID = 1L;
@@ -106,5 +107,11 @@ public class PanelGenerique extends JPanel implements ActionListener{
             	   }
                }        
         }
+    }
+
+    @Override
+    public void receivedTraduction(String traduction) {
+        // TODO Auto-generated method stub
+        
     }
 }

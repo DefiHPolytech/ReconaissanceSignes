@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import traduction.TraductionListener;
 import vehicules.*;
 import affichage.Cadre;
 import affichage.PanelActionManager;
@@ -18,7 +19,7 @@ import algorithmes.Aleatoire;
  * @author Benjamin
  *
  */
-public class PanelCourse extends PanelGenerique implements ActionListener {
+public class PanelCourse extends PanelGenerique implements ActionListener,TraductionListener {
 
 private static final long serialVersionUID = 1L;
 
@@ -30,7 +31,7 @@ public PanelCourse() {
     CourseKeyListener listener = new CourseKeyListener(pam);
     addKeyListener(listener);
     setFocusable(true);
-    timer = new Timer(VITESSEMIN, this);
+    timer = new Timer(INTERVALLEVERIFS, this);
     timer.start();
 }
 

@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import scores.Scores;
+import traduction.Traducteur;
 import CourseVariant.PanelCourse;
 import ExplosionVariant.PanelExplosion;
 
@@ -24,9 +25,9 @@ public static final int SIZEL = 800;
 public static Scores s;
 private PanelGenerique pG;
 private JButton explosion, course,options;
-
-public Cadre(Fenetre menu) {
-    
+private Traducteur traducteur;
+public Cadre(Fenetre menu, Traducteur t) {
+    traducteur = t;
     setSize(SIZEL, SIZEH);
     setLocationRelativeTo(null);
 
@@ -76,12 +77,14 @@ public Cadre(Fenetre menu) {
 public void actionPerformed(ActionEvent arg0) {
     if (arg0.getSource() == explosion) {
         dispose();
-        Cadre c = new Cadre (Fenetre.modeExplosion);
+        Cadre c = new Cadre (Fenetre.modeExplosion,traducteur);
+        traducteur.addListener(c.pG);
     }
 
     if (arg0.getSource() == course) {
         dispose();
-        Cadre c = new Cadre (Fenetre.modeCourse);
+        Cadre c = new Cadre (Fenetre.modeCourse,traducteur);
+        traducteur.addListener(c.pG);
     }
     if (arg0.getSource() == course) {
      
