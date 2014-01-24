@@ -7,11 +7,17 @@ import com.googlecode.javacv.cpp.opencv_core.*;
 
 public class FluxVideo {
 
-
+        private int webcamNumber;
 	private FrameGrabber fluxVideo = null;
 	
+	private static final int DEFAULTWEBCAM = 0;
+	
 	public FluxVideo() {
-		
+	    this(DEFAULTWEBCAM);
+	}
+	
+	public FluxVideo(int webcamNumber) {
+		this.webcamNumber = webcamNumber;
 		try {
 			initFluxVideo();
 		} catch (Exception e) {
@@ -23,7 +29,7 @@ public class FluxVideo {
 
 	private void initFluxVideo() throws Exception {
 
-		this.fluxVideo = new OpenCVFrameGrabber(0);
+		this.fluxVideo = new OpenCVFrameGrabber(webcamNumber);
 
 		if (this.fluxVideo == null)
 			throw new Exception("Probleme d'initialisation de la webcam... ");
