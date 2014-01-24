@@ -1,8 +1,6 @@
 package affichage;
 import java.awt.GridLayout;
-import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +8,10 @@ import javax.swing.JLabel;
 
 public class SignHelper extends JFrame {
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3059756130654654129L;
     public static final String PATHLSF   = "data\\img\\lsf\\";
     public static final String ALPHABET  = "abcdefghijklmnopqrstuvwxyz";
     public static final String IMGFORMAT = ".jpg";

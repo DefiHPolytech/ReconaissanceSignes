@@ -11,6 +11,8 @@ import com.googlecode.javacv.cpp.videoInputLib.videoInput;
 
 public class WebcamSelection extends JPanel {
     
+    private static final long serialVersionUID = 6879041966957342079L;
+
     public WebcamSelection() {
         
         JButton boutonValider;
