@@ -33,7 +33,9 @@ public class PanelExplosion extends PanelGenerique{
         setFocusable(true);
         timer = new Timer(INTERVALLEVERIFS,this);        
         timer.start();
+        
         Cadre.s.initializeTemps(tempsdejeu);
+        
         
     }
 	
@@ -45,17 +47,19 @@ public class PanelExplosion extends PanelGenerique{
 	Cadre.s.diminueTemps();
 	if(Cadre.s.getTempsRestant()==0)
 	{
-		
+		Cadre.s.setText("Le jeu est terminé");
 	}
-	for (int i=0; i<carList.size();i++){
-		 // Si c'est un véhicule et nn un panel vide
-		 if(carList.get(i) instanceof Vehicule)
-	     {
-			 Vehicule v = (Vehicule)carList.get(i);
-			 //Si il est sorti ou qu'il a explosé et qu'on a laissé le temps de voir l'image d'explosion
-	          if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
-	          {
-	        	  //Alors il y a une prob. qu'on repop un véhicule sur la colonne correspondante
+	else
+	{
+			for (int i=0; i<carList.size();i++){		
+				// Si c'est un véhicule et nn un panel vide
+				if(carList.get(i) instanceof Vehicule)
+				{
+					Vehicule v = (Vehicule)carList.get(i);
+					//Si il est sorti ou qu'il a explosé et qu'on a laissé le temps de voir l'image d'explosion
+					if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
+					{
+						//Alors il y a une prob. qu'on repop un véhicule sur la colonne correspondante
 	        	    	if(Aleatoire.randomBoolean())
 	        	    	{
 	        	    		pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
@@ -64,15 +68,22 @@ public class PanelExplosion extends PanelGenerique{
 	        	    	{
 	        	    		pam.replaceVehiculebyPanel(i);
 	        	    	}	        	    
-	          }	          
-	     } 
-		 // Il y a une probabilité faible qu'a chacke tick d'horloge un véhicule repop sur une colonne 
-		 else if(Math.random()<EPSILON*DIFFICULTEE)
-		 {
-			 pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
-		 }
+					}	          
+				} 
+				// Il y a une probabilité faible qu'a chacke tick d'horloge un véhicule repop sur une colonne 
+				else if(Math.random()<EPSILON*DIFFICULTEE)
+				{
+					pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
+				}
 	 }
      }
+    }
+    
+    @Override
+    public void receivedTraduction(String traduction)
+    {
+    	
+    }
 }
 	
 
