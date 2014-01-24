@@ -25,7 +25,7 @@ private String lettre;
 private BufferedImage image;
 private int dy = 5;
 private int countdown = -1;
-private boolean isSlowed;
+private boolean isSlowed,isExploded;
 
 public Vehicule(String lettre) {
     this.lettre = lettre;
@@ -163,6 +163,7 @@ public void setCountDown(int delay) {
 public void slow() {
     timer.setDelay(timer.getDelay() + 50);
     isSlowed = true;
+    
 }
 
 /**
@@ -193,6 +194,7 @@ public void explose() {
     setImage("voitures/explosion.png");
     repaint();
     Cadre.s.augmenteScore(10);
+    setExploded(true);
 }
 
 /**
@@ -216,5 +218,13 @@ public boolean touchLine() {
 
 public void restart() {
     timer.start();
+}
+
+public boolean isExploded() {
+	return isExploded;
+}
+
+public void setExploded(boolean isExploded) {
+	this.isExploded = isExploded;
 }
 }

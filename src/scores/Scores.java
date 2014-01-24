@@ -25,18 +25,30 @@ public int getScore(){
 public String getTexte(){
     return texte;
 }
+
+/**
+ * Initialiser le score
+ */
 private void initialize() {
     texte = Integer.toString(score);
-    setText(texte);
+    setText("Score : "+texte);
 }
 
+/**
+ * Pour augmenter le score 
+ * @param i
+ */
 public void augmenteScore(int i) {
     score += i;
     texte = Integer.toString(score);
 
-    setText(texte);
+    setText("Score : "+texte);
 }
 
+/**
+ * Pour mettre un texte a la place du score
+ * @param i
+ */
 public void setScore(int i) {
     score = i;
     texte = Integer.toString(score);
