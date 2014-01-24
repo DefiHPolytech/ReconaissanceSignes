@@ -242,6 +242,9 @@ public class Traducteur implements Runnable {
     }
 
     public void lancerTraductions() {
+        if (!ready)
+            init();
+        
         secondePhase();
     }
     
