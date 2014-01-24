@@ -2,11 +2,9 @@ package ExplosionVariant;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import traduction.TraductionListener;
 import vehicules.Vehicule;
 import affichage.Cadre;
 import affichage.PanelActionManager;
@@ -19,7 +17,7 @@ import algorithmes.Aleatoire;
  */
 public class PanelExplosion extends PanelGenerique {
 	
-	private final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private final double EPSILON = 0.01;
 	private final double DIFFICULTEE = 8;
 	
