@@ -24,7 +24,7 @@ public class PanelGenerique extends JPanel implements ActionListener{
 	protected static final int GRIDNB=10;
 	protected static final int NBCARS=5;
 	// Une seconde entre chaque vérification du timer ppal
-	protected static final int VITESSEMIN=1000;	
+	protected static final int INTERVALLEVERIFS=1000;	
 	protected ArrayList<JPanel> carList = new ArrayList<JPanel>();
 	protected PanelActionManager pam;    
 	

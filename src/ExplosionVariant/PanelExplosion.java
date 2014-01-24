@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 
 import vehicules.Vehicule;
+import affichage.Cadre;
 import affichage.PanelActionManager;
 import affichage.PanelGenerique;
 import algorithmes.Aleatoire;
@@ -16,10 +17,10 @@ import algorithmes.Aleatoire;
  */
 public class PanelExplosion extends PanelGenerique{
 	
-	private static final long serialVersionUID = 1L;
-	private static final double EPSILON = 0.01;
-	private static final double DIFFICULTEE = 8;
-	
+	private final long serialVersionUID = 1L;
+	private final double EPSILON = 0.01;
+	private final double DIFFICULTEE = 8;
+	private int tempsdejeu= 120;
 	
     public PanelExplosion(){
     	// On crée une grille de 1*10 col ou circuleront les voitures
@@ -30,8 +31,10 @@ public class PanelExplosion extends PanelGenerique{
         KeyListenerExplosion listener = new KeyListenerExplosion(pam);
         addKeyListener(listener);
         setFocusable(true);
-        timer = new Timer(VITESSEMIN,this);        
+        timer = new Timer(INTERVALLEVERIFS,this);        
         timer.start();
+        Cadre.s.initializeTemps(tempsdejeu);
+        
     }
 	
     /**
@@ -39,7 +42,11 @@ public class PanelExplosion extends PanelGenerique{
      */
     @Override
 	public void actionPerformed(ActionEvent e) {
-	        
+	Cadre.s.diminueTemps();
+	if(Cadre.s.getTempsRestant()==0)
+	{
+		
+	}
 	for (int i=0; i<carList.size();i++){
 		 // Si c'est un véhicule et nn un panel vide
 		 if(carList.get(i) instanceof Vehicule)
