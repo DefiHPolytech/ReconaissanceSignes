@@ -27,14 +27,14 @@ public String getTexte(){
 }
 private void initialize() {
     texte = Integer.toString(score);
-    setText(texte);
+    setText("Score : "+texte);
 }
 
 public void augmenteScore(int i) {
     score += i;
     texte = Integer.toString(score);
 
-    setText(texte);
+    setText("Score : "+texte);
 }
 
 public void setScore(int i) {
