@@ -17,19 +17,21 @@ import Observer.Observateur;
 public class PanneauVideo extends JPanel implements KeyListener {
 
         private static final long serialVersionUID = -231394428684493014L;
+        private static final int  DEFAULTWEBCAM = 0;
         
-        BufferedImage image = null;
-        threadFluxVideo thFlux = null;
+        private BufferedImage image = null;
+        private threadFluxVideo thFlux = null;
+                
+        private CvRect rectVisage = null;
+        private CvRect rectMain = new CvRect(0,0,300,300);
         
-        int i =0;
+        public PanneauVideo () {
+            this(DEFAULTWEBCAM);
+        }
         
-        CvRect rectVisage = null;
-        CvRect rectMain = new CvRect(0,0,300,300);
-        
-        
-        public PanneauVideo ()
+        public PanneauVideo (int webcamNumber)
         {
-                thFlux = new threadFluxVideo();
+                thFlux = new threadFluxVideo(webcamNumber);
                 
                 //le panneau video observe le thread Flux*
                 
