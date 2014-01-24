@@ -23,7 +23,6 @@ public class WebcamSelection extends JPanel {
             JRadioButton button = new JRadioButton(videoInput.getDeviceName(i));
             grp.add(button);
             add(button);
-            System.out.println(videoInput.getDeviceName(i));
         }
         boutonValider = new JButton("Valider");
         
