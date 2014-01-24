@@ -3,6 +3,7 @@ package Arbre;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Scanner;
+
 import static com.googlecode.javacv.cpp.opencv_core.CV_32FC1;
 import static com.googlecode.javacv.cpp.opencv_core.cvCreateMat;
 import static com.googlecode.javacv.cpp.opencv_highgui.*;
@@ -12,6 +13,7 @@ import com.googlecode.javacv.cpp.opencv_core.CvMat;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
 import com.googlecode.javacv.cpp.opencv_ml.CvRTParams;
 import com.googlecode.javacv.cpp.opencv_ml.CvRTrees;
+
 import static com.googlecode.javacv.cpp.opencv_ml.*;
 
 public class ImageToCvMat {
@@ -27,6 +29,7 @@ public class ImageToCvMat {
 
 	// Représente le nombre total de photo disponible dans le dossier arbre
 	private final static int NBR_PHOTO_DEFAULT = 10;
+	@SuppressWarnings("unused")
 	private int nbr_photo;
 
 	// obligatoire pour délimité les cvMat
@@ -202,6 +205,7 @@ public class ImageToCvMat {
 
 	public static void main(String[] args) {
 
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
 		ImageToCvMat arbre = new ImageToCvMat(1040);

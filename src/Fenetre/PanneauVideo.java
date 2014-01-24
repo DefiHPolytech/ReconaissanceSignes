@@ -83,7 +83,9 @@ public class PanneauVideo extends JPanel implements KeyListener {
 	}
 	
 	
-	public void setRectangleVisage (CvRect rect) { this.rectVisage = rect;}
+	public void setRectangleVisage (CvRect rect) {
+		this.rectVisage = rect;
+	}
 	
 	public void setRectangleMain (CvRect rectangle) { 
 		this.rectMain.x(rectangle.x());

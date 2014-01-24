@@ -235,7 +235,7 @@ public class ReconPeau {
 	
 	
 	
-	public static CvRect adaptRectangleObjet (IplImage imageNoir, CvRect rect)
+	public CvRect adaptRectangleObjet (IplImage imageNoir, CvRect rect)
 	{
 		CvRect result = null;
 		
