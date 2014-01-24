@@ -26,7 +26,7 @@ public class ReconVisage {
 		
 		private opencv_core.CvMemStorage storage = null; // un block de mémoire
 	
-		private opencv_core.CvSeq visages = null; //
+		private opencv_core.CvSeq visages = null;
 		private CvRect rectangle = null;
 		
 		
@@ -38,7 +38,7 @@ public class ReconVisage {
 			rectangle = new CvRect();
 		}
 		
-		//													Constructeur
+		//Constructeur
 		
 		public  ReconVisage (IplImage image )
 		{
@@ -53,7 +53,6 @@ public class ReconVisage {
 		
 		public void free()
 		{
-			
 			
 			this.image = null;
 			
@@ -71,13 +70,11 @@ public class ReconVisage {
 			
 			this.imageGris = null;
 			this.rectangle = null;
-			
-			
 		}
 		
 		
 
-		//													Accesseur de consultation
+		//Accesseur de consultation
 		public IplImage getImage (){return this.image;}
 		
 		public CvRect getRectangle (){
@@ -87,9 +84,11 @@ public class ReconVisage {
 				return null;
 		}
 		
-		public void setRectangle (CvRect rect){ this.rectangle = rect;}
+		public void setRectangle (CvRect rect){
+			this.rectangle = rect;
+		}
 		
-		//													Accesseur de modification
+		//Accesseur de modification
 		public void setImage (IplImage image)
 		{
 			if(this.image != null && image != null)
@@ -98,9 +97,14 @@ public class ReconVisage {
 			this.image = image;
 		}
 		
-		//														Méthode transImageGris
+		/**
+		 * Méthode transImageGris
+		 * Methode pour transformer une image en monochromatique (noir/blanc)
+		 * @param image
+		 * @return IplImage monochromatique
+		 */
 		
-		public IplImage transImageGris (IplImage image) 	//methode pour transformer une image en monochromatique (noir/blanc)
+		public IplImage transImageGris (IplImage image)
 		{
 			
 			//On créer l'espace nécéssaire pour stoker 'ImageGris' 
@@ -114,8 +118,11 @@ public class ReconVisage {
 			return imageGris;
 		}
 		
-		//														Méthode detecterLesVisages
-		
+		/**
+		 * Méthode qui détecte un visage et retourne la plus petite image possible
+		 * recouvrant tout le visage
+		 * @return IplImage de la tête
+		 */
 		public IplImage detecterLesVisages ()
 		{
 			
@@ -131,8 +138,11 @@ public class ReconVisage {
 			
 		}
 
-		//														Méthode recupObjet
-		// On recupere la zone de l'image par rapport a l'objet rectangle de cette classe
+		/**
+		 * Méthode recupObjet
+		 * @return
+		 * On recupere la zone de l'image délimité par un rectangle
+		 */
 		public IplImage recupObjet ()
 		{
 			IplImage image = null;
@@ -145,12 +155,18 @@ public class ReconVisage {
 			catch (Exception e){
 				System.out.println("Erreur lors de la récupération d'image en: "+rectangle.x()+" "+rectangle.y());
 				System.out.println(e);
-			}
-			
+			}			
 			return image;
 		}
 		
-		// idem que la methode precedente
+		/**
+		 * Méthode recupObjet
+		 * @param une IplImage image
+		 * @param un rectangle CvRect
+		 * @return IplImage recoupée
+		 * 
+		 * On recupere la zone de l'image délimité par un rectangle
+		 */
 		public static IplImage recupObjet (IplImage imageSrc, CvRect rect)
 		{
 			CvRect rect2 = rect;
@@ -182,13 +198,15 @@ public class ReconVisage {
 		}
 		
 		
+		
 		public BufferedImage recupObjetBuffer ()
 		{
 			CvRect rect2 = new CvRect(this.rectangle.x(), rectangle.y(), rectangle.width(), rectangle.height());
 			
 			
-			//on verifie sur rectangle est bien encadre dans l'image
+			//on verifie sur rectangle est bien encadré dans l'image
 			//dans le cas contraire on le recadre a l'interieure
+			
 			if (rect2.x()+rect2.width() > this.image.width())
 			{
 				if(rect2.width()> this.image.width())
@@ -226,6 +244,12 @@ public class ReconVisage {
 			return this.image.getBufferedImage().getSubimage(rect2.x(), rect2.y(), rect2.width(), rect2.height());
 		}
 		
+		/**
+		 * 
+		 * @param image
+		 * @param rect
+		 * @return
+		 */
 		public static BufferedImage recupObjetBuffer (BufferedImage image , CvRect rect)
 		{
 			CvRect rect2 = new CvRect(rect.x(), rect.y(), rect.width(), rect.height());
@@ -274,9 +298,8 @@ public class ReconVisage {
 		
 		
 		
-		//														Méthode tracerContour
-		@SuppressWarnings("unused")
-		private void tracerContour()
+		//Méthode tracerContour
+		public void tracerContour()
 		{
 			//on reduit la largeur de l'ellipse
 	    	this.rectangle.x(this.getRectangle().x()+ (this.getRectangle().width()*10)/100);

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 
 import vehicules.Vehicule;
+import affichage.Cadre;
 import affichage.PanelActionManager;
 import affichage.PanelGenerique;
 import algorithmes.Aleatoire;
@@ -14,12 +15,11 @@ import algorithmes.Aleatoire;
  * @author Julien 
  *
  */
-public class PanelExplosion extends PanelGenerique{
+public class PanelExplosion extends PanelGenerique {
 	
 	private static final long serialVersionUID = 1L;
-	private static final double EPSILON = 0.01;
-	private static final double DIFFICULTEE = 8;
-	
+	private final double EPSILON = 0.01;
+	private final double DIFFICULTEE = 8;
 	
     public PanelExplosion(){
     	// On crée une grille de 1*10 col ou circuleront les voitures
@@ -30,8 +30,9 @@ public class PanelExplosion extends PanelGenerique{
         KeyListenerExplosion listener = new KeyListenerExplosion(pam);
         addKeyListener(listener);
         setFocusable(true);
-        timer = new Timer(VITESSEMIN,this);        
-        timer.start();
+        timer = new Timer(INTERVALLEVERIFS,this);        
+        timer.start();   
+        
     }
 	
     /**
@@ -39,16 +40,22 @@ public class PanelExplosion extends PanelGenerique{
      */
     @Override
 	public void actionPerformed(ActionEvent e) {
-	        
-	for (int i=0; i<carList.size();i++){
-		 // Si c'est un véhicule et nn un panel vide
-		 if(carList.get(i) instanceof Vehicule)
-	     {
-			 Vehicule v = (Vehicule)carList.get(i);
-			 //Si il est sorti ou qu'il a explosé et qu'on a laissé le temps de voir l'image d'explosion
-	          if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
-	          {
-	        	  //Alors il y a une prob. qu'on repop un véhicule sur la colonne correspondante
+	Cadre.s.diminueTemps();
+	if(Cadre.s.getTempsRestant()<=0)
+	{
+		Cadre.s.setText("Le jeu est terminé");
+	}
+	else
+	{
+			for (int i=0; i<carList.size();i++){		
+				// Si c'est un véhicule et nn un panel vide
+				if(carList.get(i) instanceof Vehicule)
+				{
+					Vehicule v = (Vehicule)carList.get(i);
+					//Si il est sorti ou qu'il a explosé et qu'on a laissé le temps de voir l'image d'explosion
+					if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
+					{
+						//Alors il y a une prob. qu'on repop un véhicule sur la colonne correspondante
 	        	    	if(Aleatoire.randomBoolean())
 	        	    	{
 	        	    		pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
@@ -57,15 +64,23 @@ public class PanelExplosion extends PanelGenerique{
 	        	    	{
 	        	    		pam.replaceVehiculebyPanel(i);
 	        	    	}	        	    
-	          }	          
-	     } 
-		 // Il y a une probabilité faible qu'a chacke tick d'horloge un véhicule repop sur une colonne 
-		 else if(Math.random()<EPSILON*DIFFICULTEE)
-		 {
-			 pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
-		 }
+					}	          
+				} 
+				// Il y a une probabilité faible qu'a chacke tick d'horloge un véhicule repop sur une colonne 
+				else if(Math.random()<EPSILON*DIFFICULTEE)
+				{
+					pam.swapPanelIby(i,  Aleatoire.createRandomVehicle(NBCARS));
+				}
 	 }
      }
+    }
+    
+    @Override
+    public void receivedTraduction(String traduction)
+    {
+    	System.out.println(traduction);
+        pam.actionSurVoitureLettre(traduction,"explose");  
+    }
 }
 	
 

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import algorithmes.Aleatoire;
+import traduction.TraductionListener;
 import vehicules.*;
 
 /**
@@ -17,14 +18,14 @@ import vehicules.*;
  * @author Julien
  *
  */
-public class PanelGenerique extends JPanel implements ActionListener{
+public class PanelGenerique extends JPanel implements ActionListener,TraductionListener{
 
 
 	protected static final long serialVersionUID = 1L;
 	protected static final int GRIDNB=10;
 	protected static final int NBCARS=5;
 	// Une seconde entre chaque vérification du timer ppal
-	protected static final int VITESSEMIN=1000;	
+	protected static final int INTERVALLEVERIFS=1000;	
 	protected ArrayList<JPanel> carList = new ArrayList<JPanel>();
 	protected PanelActionManager pam;    
 	
@@ -106,5 +107,11 @@ public class PanelGenerique extends JPanel implements ActionListener{
             	   }
                }        
         }
+    }
+
+    @Override
+    public void receivedTraduction(String traduction) {
+        // TODO Auto-generated method stub
+        
     }
 }

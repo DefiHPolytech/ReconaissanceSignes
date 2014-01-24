@@ -3,35 +3,30 @@ package scores;
 import javax.swing.JTextArea;
 
 /**
- * Cette classe met en place les scores
+ * Cette classe met en place les scores et des textes informatifs
  * 
  * @author Julien
  * 
  */
 public class Scores extends JTextArea {
 private int score = 0;
-private String texte;
+private int tempsrestant=120;
 private static final long serialVersionUID = 1L;
 
 public Scores() {
     super();
-    initialize();
 }
 
 public int getScore(){
     return score;
 }
 
-public String getTexte(){
-    return texte;
-}
 
 /**
- * Initialiser le score
+ * Initialiser le temps
  */
-private void initialize() {
-    texte = Integer.toString(score);
-    setText("Score : "+texte);
+public void initializeTemps(int temps) {
+    tempsrestant = temps;
 }
 
 /**
@@ -40,9 +35,19 @@ private void initialize() {
  */
 public void augmenteScore(int i) {
     score += i;
-    texte = Integer.toString(score);
+    setText("Score : "+Integer.toString(score)+" Temps restant : "+tempsrestant);
+}
 
-    setText("Score : "+texte);
+public void diminueTemps() {
+    tempsrestant--;
+    String min  = Integer.toString(tempsrestant/60);
+    String secs  = Integer.toString(tempsrestant%60);
+    setText("Score : "+Integer.toString(score)+" Temps restant : "+min+":"+secs);
+}
+
+public int getTempsRestant()
+{
+	return tempsrestant;
 }
 
 /**
@@ -51,8 +56,6 @@ public void augmenteScore(int i) {
  */
 public void setScore(int i) {
     score = i;
-    texte = Integer.toString(score);
-
-    setText(texte);
+    setText(Integer.toString(score));
 }
 }

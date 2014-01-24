@@ -11,18 +11,25 @@ import Reconaissance.ReconVisage;
 import com.googlecode.javacv.cpp.opencv_core.CvRect;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
 
+/**
+ * Classe qui reprend le "main" des IUT. On lance la caméra, reconnait le visage,
+ * puis la main, la couleur de peau puis on essaie de déchiffrer ce que l'on recoit de la
+ * caméra.
+ * @param panneau video
+ * @param traductionInterval (en millisecondes)
+ */
 public class Traducteur implements Runnable {
 
     private PanneauVideo pan;
     private PanneauImageNoirEtBlanc panNoirEtBlanc;
 
-    // Objet Reconnaissance
+    // Objets de Reconnaissance
     private ReconVisage detectVisage;
     private ReconCouleurPeau couleurPeau;
     private ReconPeau detectePeau;
 
+    //images
     private BufferedImage imageTete;
-    private BufferedImage imageParallele;
     private IplImage imageIplPara;
 
     private ThreadTraduction thTraduction;
@@ -36,6 +43,7 @@ public class Traducteur implements Runnable {
     private int traductionInterval;
     // couleur Moyenne
     private float[] HSV;
+
 
     public Traducteur(PanneauVideo video, int traductionInterval) {
         continuer = true;
@@ -70,24 +78,29 @@ public class Traducteur implements Runnable {
 
     }
 
+    /**
+     * Methode qui essaie de masquer le visage après l'avoir détecté aupréalable.
+     * Afin de n'avoir plus que la main sur l'image.
+     * Malheureusement elle ne marche pas très bien. 
+     */
     private void appliMasque() {
-        // on essaye mtn de masquer le visage
-        // pour recuperer la main
-        // on travail sur une image parallele
         imageIplPara = detectVisage.getImage().clone();
-        // l'image du debut du traitement
-        imageParallele = imageIplPara.getBufferedImage();
 
         // appli du masque
         try {
-            ReconCouleurPeau.masquerObjet(imageParallele,
+            ReconCouleurPeau.masquerObjet(imageIplPara.getBufferedImage(),
                     detectVisage.getRectangle());
         } catch (Exception e) {
-            System.out.println("Erreur lors de l'application du masque");
-            System.out.println(e);
+            System.out.println("Erreur lors de l'application du masque !");
         }
     }
 
+    /**
+     * Phase d'initialisation
+     * On reconnait la tête, couleur de peau. Cela permet d'aider le logiciel à reconnaitre
+     * plus facilement la main. En fonction de cela on fixe la configuration
+     * qui va permettre de générer l'image en noir et blanc
+     */
     public void init() {
         System.out.println("Première Phase... ");
 
@@ -115,7 +128,8 @@ public class Traducteur implements Runnable {
                     imageTete = detectVisage.recupObjetBuffer();
 
                     if (imageTete != null) {
-                        // Preparation calcul couleur moyenne
+                    	
+                        // Preparation calcul de la couleur moyenne
                         couleurPeau.setImage(imageTete);
 
                         // on calcule la couleur moyenne de la tête
@@ -125,20 +139,8 @@ public class Traducteur implements Runnable {
 
                         // on recup la position de la main
                         detectMain();
-
-                        // on libere la mémoire
-                        imageParallele = null;
-                        imageIplPara = null;
-                        imageTete = null;
-
                     }
-
-                    detectVisage.setRectangle(null);
-
                 }
-
-                detectVisage.setImage(null);
-
             }
 
             try {
@@ -160,20 +162,28 @@ public class Traducteur implements Runnable {
         ready = true;
     }
 
+    /**
+     * On supprime les objets que l'on n'utilise plus
+     */
     private void libererMemoire() {
         try {
 
             imageTete = null;
-            imageParallele = null;
             imageIplPara = null;
 
             detectVisage.free();
             detectVisage = null;
 
         } catch (Exception e) {
+        	System.out.println("Erreur lors de la tentative de libération de mémoire");
         }
     }
 
+    /**
+     * Seconde phase.
+     * Transformation de l'image de la main en noir et blanc, puis traduction
+     * à l'aide d'un arbre de vérité
+     */
     private void secondePhase() {
         System.out.println("Seconde Phase... ");
         
@@ -181,22 +191,20 @@ public class Traducteur implements Runnable {
             while (!pause) {
 
                 if (pan.getImageIpl() != null && pan.getImage() != null) {
+                	
                     // on actualise l'image noir et blanc
                     panNoirEtBlanc.setImage(pan.getImageIpl());
 
                     // on suit la main
-                    detectePeau
-                            .suivreMain(pan.getImageIpl(), pan.getRectMain());
+                    detectePeau.suivreMain(pan.getImageIpl(), pan.getRectMain());
 
                     // on modifie les caracterisitiques du rectangle
                     rectMain = pan.getRectMain();
                     rectMain.x(detectePeau.x() - rectMain.width() / 2);
                     rectMain.y(detectePeau.y() - rectMain.height() / 2);
 
-                    // detectePeau.DetectCouleur(pan.getImageIpl());
-                    // rectMain =
-                    // ReconPeau.adaptRectangleObjet(detectePeau.getImage(),
-                    // rectMain);
+                    // test
+                    rectMain=detectePeau.adaptRectangleObjet(detectePeau.getImage(),rectMain);
 
                     // on modifie la position du rectangle sur l'affichage
                     if (rectMain != null)
@@ -207,9 +215,7 @@ public class Traducteur implements Runnable {
                             .setImage(IplImage.createFrom(ReconVisage
                                     .recupObjetBuffer(pan.getImage(),
                                             pan.getRectMain())));
-
                 }
-
                 if (!continuer)
                     break;
 
@@ -228,9 +234,7 @@ public class Traducteur implements Runnable {
                 e.printStackTrace();
             }
         }
-        
         ready = false;
-
     }
     
     public void addListener (TraductionListener listener) {        
@@ -243,8 +247,7 @@ public class Traducteur implements Runnable {
 
     public void lancerTraductions() {
         if (!ready)
-            init();
-        
+            init();        
         secondePhase();
     }
     
@@ -267,7 +270,7 @@ public class Traducteur implements Runnable {
     public void run() {
         lancerTraductions();
     }
-
+    
     public static void main(String[] args) {
         Traducteur traducteur = new Traducteur(new PanneauVideo(), 1000);
         
@@ -277,7 +280,5 @@ public class Traducteur implements Runnable {
         
         Thread thTraducteur = new Thread(traducteur);
         thTraducteur.start();
-        
     }
-
 }
