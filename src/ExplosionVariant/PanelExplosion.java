@@ -2,9 +2,11 @@ package ExplosionVariant;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import traduction.TraductionListener;
 import vehicules.Vehicule;
 import affichage.Cadre;
 import affichage.PanelActionManager;
@@ -15,12 +17,11 @@ import algorithmes.Aleatoire;
  * @author Julien 
  *
  */
-public class PanelExplosion extends PanelGenerique{
+public class PanelExplosion extends PanelGenerique {
 	
 	private final long serialVersionUID = 1L;
 	private final double EPSILON = 0.01;
 	private final double DIFFICULTEE = 8;
-	private int tempsdejeu= 120;
 	
     public PanelExplosion(){
     	// On crée une grille de 1*10 col ou circuleront les voitures
@@ -32,10 +33,7 @@ public class PanelExplosion extends PanelGenerique{
         addKeyListener(listener);
         setFocusable(true);
         timer = new Timer(INTERVALLEVERIFS,this);        
-        timer.start();
-        
-        Cadre.s.initializeTemps(tempsdejeu);
-        
+        timer.start();   
         
     }
 	
@@ -45,7 +43,7 @@ public class PanelExplosion extends PanelGenerique{
     @Override
 	public void actionPerformed(ActionEvent e) {
 	Cadre.s.diminueTemps();
-	if(Cadre.s.getTempsRestant()==0)
+	if(Cadre.s.getTempsRestant()<=0)
 	{
 		Cadre.s.setText("Le jeu est terminé");
 	}
@@ -82,7 +80,8 @@ public class PanelExplosion extends PanelGenerique{
     @Override
     public void receivedTraduction(String traduction)
     {
-    	
+    	System.out.println(traduction);
+        pam.actionSurVoitureLettre(traduction,"explose");  
     }
 }
 	

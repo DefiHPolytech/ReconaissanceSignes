@@ -10,7 +10,7 @@ import javax.swing.JTextArea;
  */
 public class Scores extends JTextArea {
 private int score = 0;
-private int tempsrestant;
+private int tempsrestant=120;
 private static final long serialVersionUID = 1L;
 
 public Scores() {
