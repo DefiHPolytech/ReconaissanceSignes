@@ -17,10 +17,12 @@ public class Launch {
         traducteur.addListener(new TraductionAfficheur());
         
         traducteur.init();
-        Cadre c = new Cadre(Fenetre.menu,traducteur);
-        c.setVisible(true);
+
         
         Thread thTraducteur = new Thread(traducteur);
+        
+        Cadre c = new Cadre(Fenetre.menu,traducteur);
+        c.setVisible(true);
         thTraducteur.start();
         
 		

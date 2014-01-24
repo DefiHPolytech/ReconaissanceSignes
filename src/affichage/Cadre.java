@@ -59,6 +59,7 @@ public Cadre(Fenetre menu, Traducteur t) {
 
         s= new Scores();
         add(s, BorderLayout.SOUTH);
+        traducteur.addListener(c);
     }
     if (menu == Fenetre.modeCourse) {
         setLayout(new BorderLayout());
@@ -69,6 +70,7 @@ public Cadre(Fenetre menu, Traducteur t) {
 
         s= new Scores();
         add(s, BorderLayout.SOUTH);
+        traducteur.addListener(c);
     }
     setVisible(true);
 }
@@ -78,13 +80,13 @@ public void actionPerformed(ActionEvent arg0) {
     if (arg0.getSource() == explosion) {
         dispose();
         Cadre c = new Cadre (Fenetre.modeExplosion,traducteur);
-        traducteur.addListener(c.pG);
+       
     }
 
     if (arg0.getSource() == course) {
         dispose();
         Cadre c = new Cadre (Fenetre.modeCourse,traducteur);
-        traducteur.addListener(c.pG);
+        
     }
     if (arg0.getSource() == course) {
      
