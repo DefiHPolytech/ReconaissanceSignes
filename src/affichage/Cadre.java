@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import scores.Erreurs;
 import scores.Scores;
 import traduction.Traducteur;
 import CourseVariant.PanelCourse;
@@ -22,9 +23,10 @@ import Fenetre.PanneauVideo;
 public class Cadre extends JFrame implements ActionListener {
 
 private static final long serialVersionUID = 1L;
-public static final int SIZEH = 768;
+public static final int SIZEH = 600;
 public static final int SIZEL = 1024;
 public static Scores s;
+public static Erreurs e;
 private JButton explosion, course,options;
 private Traducteur traducteur;
 private PanneauVideo pV;
@@ -61,6 +63,7 @@ public Cadre(Fenetre menu, Traducteur t,PanneauVideo pV) {
         add(c, BorderLayout.CENTER);
 
         s= new Scores();
+        e = new Erreurs();
         add(s, BorderLayout.SOUTH);
         traducteur.addListener(c);
         add(pV,BorderLayout.WEST);

@@ -3,6 +3,7 @@ package ExplosionVariant;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import vehicules.Vehicule;
@@ -41,9 +42,14 @@ public class PanelExplosion extends PanelGenerique {
     @Override
 	public void actionPerformed(ActionEvent e) {
 	Cadre.s.diminueTemps();
+	
 	if(Cadre.s.getTempsRestant()<=0)
 	{
+		
 		Cadre.s.setText("Le jeu est terminé");
+		JOptionPane.showMessageDialog(null,"Vous avez fait le plus d'erreurs sur "+Cadre.e.getMaxErr()+ " avec "+ Cadre.e.getNbErr()+" erreurs");
+		System.exit(0);
+		
 	}
 	else
 	{
@@ -52,6 +58,11 @@ public class PanelExplosion extends PanelGenerique {
 				if(carList.get(i) instanceof Vehicule)
 				{
 					Vehicule v = (Vehicule)carList.get(i);
+					//Si le véhicule sort on ajoute une erreur
+					if(v.outOfWindow())
+					{
+					 Cadre.e.ajouteErreur(v.getLettre());
+					}
 					//Si il est sorti ou qu'il a explosé et qu'on a laissé le temps de voir l'image d'explosion
 					if(v.outOfWindow() || (v.countDownZero() && !v.isRunning()))
 					{

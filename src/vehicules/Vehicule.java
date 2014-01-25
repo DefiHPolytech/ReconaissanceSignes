@@ -190,7 +190,7 @@ public Timer getTimer() {
 public void explose() {
     setImage("voitures/explosion.png");
     repaint();
-    Cadre.s.augmenteScore(10);
+    
     setExploded(true);
 }
 

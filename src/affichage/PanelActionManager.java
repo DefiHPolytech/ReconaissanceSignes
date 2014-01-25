@@ -2,7 +2,9 @@ package affichage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import javax.swing.JPanel;
+
 import vehicules.Vehicule;
 
 public class PanelActionManager {
@@ -61,6 +63,8 @@ public void actionSurVoitureLettre(String c, String action) {
                 v.stop();
                 v.explose();
                 v.setCountDown(100);
+                Cadre.s.augmenteScore(10);
+                
             }
         case "start":
             v.go();
