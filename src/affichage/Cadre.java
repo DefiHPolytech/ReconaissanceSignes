@@ -23,18 +23,19 @@ import Fenetre.PanneauVideo;
 public class Cadre extends JFrame implements ActionListener {
 
 private static final long serialVersionUID = 1L;
-public static final int SIZEH = 600;
+public static final int SIZEH = 764;
 public static final int SIZEL = 1024;
 public static Scores s;
 public static Erreurs e;
-private JButton explosion, course,options;
+private JButton explosion, course, options;
 private Traducteur traducteur;
 private PanneauVideo pV;
-public Cadre(Fenetre menu, Traducteur t,PanneauVideo pV) {
+
+public Cadre(Fenetre menu, Traducteur t, PanneauVideo pV) {
     traducteur = t;
     setSize(SIZEL, SIZEH);
     setLocationRelativeTo(null);
-    this.pV=pV;
+    this.pV = pV;
     // Savoir que faire lorsque on appuie sur la croix
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Traffic");
@@ -42,9 +43,9 @@ public Cadre(Fenetre menu, Traducteur t,PanneauVideo pV) {
     if (menu == Fenetre.menu) {
 
         /** La taille de la fenêtre */
-        
+
         setLayout(new FlowLayout());
-        
+
         explosion = new JButton("Mode Explosion");
         course = new JButton("Mode Course");
         options = new JButton("Options");
@@ -57,51 +58,62 @@ public Cadre(Fenetre menu, Traducteur t,PanneauVideo pV) {
     }
     if (menu == Fenetre.modeExplosion) {
         setLayout(new BorderLayout());
-        
-        PanelExplosion c = new PanelExplosion();
 
+        pV.setBounds(910,610, 100, 100);
+        add(pV);
+
+        PanelExplosion c = new PanelExplosion();
+        JPanel jp = new JPanel();
+        c.add(jp);
         add(c, BorderLayout.CENTER);
 
-        s= new Scores();
+        s = new Scores();
         e = new Erreurs();
         add(s, BorderLayout.SOUTH);
         traducteur.addListener(c);
-        add(pV,BorderLayout.WEST);
+
     }
     if (menu == Fenetre.modeCourse) {
-        
+
         setLayout(new BorderLayout());
-        
-       pV.setSize(100, 100);
-       add(pV,BorderLayout.WEST);
-        
+
+        pV.setBounds(910,610, 100, 100);
+        add(pV);
+
         PanelCourse c = new PanelCourse();
+        JPanel jp = new JPanel();
+        c.add(jp);
+        add(c, BorderLayout.CENTER);
 
-        c.setSize(1024, 748);
-        add(c,BorderLayout.CENTER);
-        
-
-        s= new Scores();
-        add(s,BorderLayout.SOUTH);
+        s = new Scores();
+        add(s, BorderLayout.SOUTH);
         traducteur.addListener(c);
-        
+
     }
     setVisible(true);
+}
+
+public Traducteur getTraducteur() {
+    return traducteur;
+}
+
+public PanneauVideo getPanneauVideo() {
+    return pV;
 }
 
 @Override
 public void actionPerformed(ActionEvent arg0) {
     if (arg0.getSource() == explosion) {
         dispose();
-        Cadre c = new Cadre (Fenetre.modeExplosion,traducteur,pV);
+        Cadre c = new Cadre(Fenetre.modeExplosion, traducteur, pV);
     }
 
     if (arg0.getSource() == course) {
         dispose();
-        Cadre c = new Cadre (Fenetre.modeCourse,traducteur,pV);
+        Cadre c = new Cadre(Fenetre.modeCourse, traducteur, pV);
     }
     if (arg0.getSource() == options) {
-     
+        WebcamSelection wS = new WebcamSelection();
     }
 
 }

@@ -53,11 +53,11 @@ public class PanelExplosion extends PanelGenerique {
 	}
 	else
 	{
-			for (int i=0; i<carList.size();i++){		
+			for (int i=0; i<trackList.size();i++){		
 				// Si c'est un véhicule et nn un panel vide
-				if(carList.get(i) instanceof Vehicule)
+				if(trackList.get(i) instanceof Vehicule)
 				{
-					Vehicule v = (Vehicule)carList.get(i);
+					Vehicule v = (Vehicule)trackList.get(i);
 					//Si le véhicule sort on ajoute une erreur
 					if(v.outOfWindow())
 					{

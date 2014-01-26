@@ -121,6 +121,10 @@ public void destroyTimer() {
     timer = null;
 }
 
+
+public void setDy(int dy){
+    this.dy=dy;
+}
 /**
  * Démarrer la voiture
  */
@@ -158,7 +162,7 @@ public void setCountDown(int delay) {
  * Ralentit le véhicule
  */
 public void slow() {
-    timer.setDelay(timer.getDelay() + 50);
+    timer.setDelay(timer.getDelay() + 100);
     isSlowed = true;
     
 }
@@ -167,7 +171,7 @@ public void slow() {
  * Accélère le véhicule
  */
 public void unSlow() {
-    timer.setDelay(timer.getDelay() - 50);
+    timer.setDelay(timer.getDelay() - 100);
     isSlowed = false;
 }
 
