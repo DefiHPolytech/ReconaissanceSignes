@@ -2,7 +2,9 @@ package affichage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import javax.swing.JPanel;
+
 import vehicules.Vehicule;
 
 public class PanelActionManager {
@@ -25,28 +27,27 @@ public PanelActionManager(PanelGenerique pC) {
  *            charactere considéré
  * @return
  */
-public ArrayList<Integer> getCarsWithLetter(String c){
-    ArrayList<Integer> indices= new ArrayList<Integer>();
+public ArrayList<Integer> getCarsWithLetter(String c) {
+    ArrayList<Integer> indices = new ArrayList<Integer>();
     ArrayList<JPanel> carList = pC.getCarList();
-    System.out.println("String c: "+c);
 
-    for (int i=0; i<carList.size();i++){
-        if (carList.get(i) instanceof Vehicule){
-            Vehicule v = (Vehicule)carList.get(i);
-            System.out.println("lettre vehicule"+v.getLettre());
-            if (v.getLettre().toLowerCase().equals(c)){
+    for (int i = 0; i < carList.size(); i++) {
+        if (carList.get(i) instanceof Vehicule) {
+            Vehicule v = (Vehicule) carList.get(i);
+            if (v.getLettre().toLowerCase().equals(c)) {
                 indices.add(i);
                 System.out.println(i);
             }
         }
     }
     return indices;
-    
+
 }
 
 /**
- * Cette méthode ralentit/accèlère/fait exploser une voiture
- * Le code est similaire pour ces trois méthodes ce pourquoi on a factorisé le code
+ * Cette méthode ralentit/accèlère/fait exploser une voiture Le code est
+ * similaire pour ces trois méthodes ce pourquoi on a factorisé le code
+ * 
  * @param c
  * @param action
  */
@@ -56,34 +57,36 @@ public void actionSurVoitureLettre(String c, String action) {
     while (it.hasNext()) {
         int i = it.next();
         Vehicule v = (Vehicule) pC.getCarList().get(i);
-        switch(action)
-        {
+        switch (action) {
         case "explose":
-        	if(!v.isExploded())
-        	{
-        		v.stop();
-        		v.explose();
-        		v.setCountDown(100);
-        	}
+            if (!v.isExploded()) {
+                v.stop();
+                v.explose();
+                v.setCountDown(100);
+                Cadre.s.augmenteScore(10);
+                
+            }
         case "start":
-        	v.go();   
+            v.go();
         case "stop":
-        	v.stop();
+            v.stop();
         case "slow":
-            v.slow();
+            if (!v.isSlowed())
+                v.slow();
             v.setCountDown(100);
-        }       
-        pC.getCarList().set(i,v);
+        }
+        pC.getCarList().set(i, v);
     }
-	
+
 }
 
 /**
  * Cette méthode détruit un véhicule
+ * 
  * @param jPanel
  */
 public void detruire(JPanel jPanel) {
-    if (jPanel instanceof Vehicule){
+    if (jPanel instanceof Vehicule) {
         Vehicule vehicule = (Vehicule) jPanel;
         vehicule.destroyTimer();
     }
@@ -92,6 +95,7 @@ public void detruire(JPanel jPanel) {
 
 /**
  * Cette méthode remplace un Panel ou Vehicule par un nouveau véhicule
+ * 
  * @param i
  * @param v
  */
@@ -101,7 +105,7 @@ public void swapPanelIby(int i, Vehicule v) {
     pC.remove(carList.get(i));
     carList.set(i, v);
     pC.add(carList.get(i), i);
-    
+
     Vehicule vehicule = (Vehicule) carList.get(i);
     vehicule.go();
     pC.invalidate();
@@ -110,11 +114,11 @@ public void swapPanelIby(int i, Vehicule v) {
 
 /**
  * Cette méthode remplace un véhicule par un panel vide
+ * 
  * @param i
  */
-public void replaceVehiculebyPanel(int i)
-{
-	ArrayList<JPanel> carList = pC.getCarList();
+public void replaceVehiculebyPanel(int i) {
+    ArrayList<JPanel> carList = pC.getCarList();
     detruire(carList.get(i));
     pC.remove(carList.get(i));
     carList.set(i, new JPanel());

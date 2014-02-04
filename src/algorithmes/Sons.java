@@ -7,7 +7,7 @@ import java.io.*;
 
 /**
  * Cette classe permet de créer des sons
- * @author benjamin
+ * @author Julien
  *
  */
 public class Sons {

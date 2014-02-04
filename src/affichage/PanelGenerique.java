@@ -15,10 +15,10 @@ import vehicules.*;
 
 /**
  * Cette classe affiche un panel générique dont les méthodes sont utiles pour les 2 variantes
- * @author Julien
+ * @author Julien & Benjamin
  *
  */
-public class PanelGenerique extends JPanel implements ActionListener,TraductionListener{
+public abstract class PanelGenerique extends JPanel implements ActionListener,TraductionListener{
 
 
 	protected static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
 	protected static final int NBCARS=5;
 	// Une seconde entre chaque vérification du timer ppal
 	protected static final int INTERVALLEVERIFS=1000;	
-	protected ArrayList<JPanel> carList = new ArrayList<JPanel>();
+	protected ArrayList<JPanel> trackList = new ArrayList<JPanel>();
 	protected PanelActionManager pam;    
 	
 	//Pour executer une action a intervalle réguliers
@@ -34,7 +34,7 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
 	
     
     public  ArrayList<JPanel> getCarList(){
-        return carList;
+        return trackList;
     }
     
     /**
@@ -45,13 +45,13 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
 		if(Aleatoire.randomBoolean())
 		{
 			Vehicule v = Aleatoire.createRandomVehicle(NBCARS);
-			carList.add(v);
+			trackList.add(v);
 			add(v);
 		}
 		else
 		{
 			JPanel p=new JPanel();
-			carList.add(p);
+			trackList.add(p);
 			add(p);
 		}
     }
@@ -61,7 +61,7 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
      * Faire démarrer tous les véhicules
      */
     public void generalStart(){
-        Iterator<JPanel> it = carList.iterator();
+        Iterator<JPanel> it = trackList.iterator();
         
         while (it.hasNext()) {
                JPanel s = it.next();
@@ -77,7 +77,7 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
      * Arrêter tous les véhicules
      */
     public void generalStop(){
-        Iterator<JPanel> it = carList.iterator();
+        Iterator<JPanel> it = trackList.iterator();
         
         while (it.hasNext()) {
                JPanel s = it.next();
@@ -96,10 +96,10 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        for (int i=0; i<carList.size();i++){
-               if(carList.get(i) instanceof Vehicule)
+        for (int i=0; i<trackList.size();i++){
+               if(trackList.get(i) instanceof Vehicule)
                {
-            	   Vehicule v = (Vehicule)carList.get(i);
+            	   Vehicule v = (Vehicule)trackList.get(i);
             	   if(v.outOfWindow())
             	   {
             		   System.out.println("vehicule sorti");
@@ -111,7 +111,6 @@ public class PanelGenerique extends JPanel implements ActionListener,TraductionL
 
     @Override
     public void receivedTraduction(String traduction) {
-        // TODO Auto-generated method stub
-        
+        System.out.println("appel "+traduction);
     }
 }
