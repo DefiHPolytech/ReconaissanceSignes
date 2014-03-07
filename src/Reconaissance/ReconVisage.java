@@ -18,7 +18,7 @@ import com.googlecode.javacv.cpp.opencv_core.IplImage;
 public class ReconVisage {
 	
 	
-		private static final String CASCADE_FILE =  "C:\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_alt.xml";
+		private static final String CASCADE_FILE =  "..\\lib\\haarcascade_frontalface_alt.xml";
 		private opencv_objdetect.CvHaarClassifierCascade cascade = null;
 		
 		private IplImage image = null; // L'image ou l'on veut y retrouver la tête
